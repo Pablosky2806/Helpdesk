@@ -14,7 +14,7 @@ class Trabajador extends Authenticatable
         'nombre',
         'email',
         'password',
-        'rol'
+        'rol',
     ];
 
     protected $hidden = [
@@ -22,3 +22,4 @@ class Trabajador extends Authenticatable
         'remember_token',
     ];
 }
+
