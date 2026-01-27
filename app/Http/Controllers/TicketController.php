@@ -22,18 +22,39 @@ class TicketController extends Controller
     {
         return view('tickets.create');
     }
-
+    //Guardar ticket
+    // Guardar ticket
     public function store(Request $request)
-    {
-        Ticket::create([
-            'user_id' => auth()->id(),
-            'titulo' => $request->titulo,
-            'descripcion' => $request->descripcion,
-            'estado' => 'abierto',
-        ]);
+{
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'apellidos' => 'required|string|max:255',
+        'email' => 'required|email',
+        'telefono' => 'nullable|string',
+        'empresa' => 'nullable|string',
 
-        return redirect()
-            ->route('tickets.index')
-            ->with('success', 'Ticket creado correctamente');
-    }
+        'tipo_dispositivo' => 'required|string',
+        'marca' => 'required|string',
+        'modelo' => 'required|string',
+        'numero_serie' => 'nullable|string',
+
+        'titulo' => 'required|string|max:255',
+        'descripcion' => 'required|string',
+        'categoria' => 'required|in:software,hardware,red,soporte_tecnico',
+        'prioridad' => 'required|in:baja,media,alta',
+    ]);
+
+    Ticket::create(array_merge(
+        $request->all(),
+        [
+            'user_id' => auth()->id(),
+            'estado' => 'abierto',
+        ]
+    ));
+
+    return redirect()
+        ->route('tickets.index')
+        ->with('success', 'Ticket creado correctamente');
+}
+
 }

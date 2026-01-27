@@ -66,7 +66,7 @@
                         <td>{{ $ticket->created_at->format('d/m/Y') }}</td>
 
                         <td>
-                            <a href="#" class="btn btn-sm btn-info">Ver</a>
+                            <a href="{{ route('tickets.show', $ticket) }}" class="btn btn-sm btn-info">Ver</a>
                             <a href="#" class="btn btn-sm btn-warning">Editar</a>
                             <a href="#" class="btn btn-sm btn-danger">Eliminar</a>
                         </td>
