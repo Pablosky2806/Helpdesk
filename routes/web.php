@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
 
     // Tickets
     Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+    Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
 });
 
 require __DIR__.'/auth.php';

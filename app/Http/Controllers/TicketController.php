@@ -17,4 +17,23 @@ class TicketController extends Controller
 
         return view('tickets.index', compact('tickets'));
     }
+
+    public function create()
+    {
+        return view('tickets.create');
+    }
+
+    public function store(Request $request)
+    {
+        Ticket::create([
+            'user_id' => auth()->id(),
+            'titulo' => $request->titulo,
+            'descripcion' => $request->descripcion,
+            'estado' => 'abierto',
+        ]);
+
+        return redirect()
+            ->route('tickets.index')
+            ->with('success', 'Ticket creado correctamente');
+    }
 }

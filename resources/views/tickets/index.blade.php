@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Tickets</title>
-
-    <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -14,9 +12,10 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Gestión de Tickets</h1>
 
-        <a href="#" class="btn btn-primary">
+        <a href="{{ route('tickets.create') }}" class="btn btn-primary">
             + Nuevo Ticket
         </a>
+
     </div>
 
     @if($tickets->isEmpty())
