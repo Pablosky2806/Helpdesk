@@ -10,32 +10,28 @@
 
 <div class="container mt-5">
 
-    <h1 class="mb-4">
-        Ticket #{{ $ticket->id }} — {{ $ticket->titulo }}
-    </h1>
+    <h1 class="mb-4">Ticket #{{ $ticket->id }}</h1>
 
-    <div class="card mb-4">
+    <div class="card">
         <div class="card-body">
 
-            <p><strong>Descripción:</strong></p>
-            <p>{{ $ticket->descripcion }}</p>
+            <h5 class="card-title">{{ $ticket->titulo }}</h5>
+
+            <p class="card-text mt-3">
+                {{ $ticket->descripcion }}
+            </p>
 
             <hr>
 
-            <p><strong>Estado:</strong>
-                <span class="badge bg-primary">
-                    {{ ucfirst(str_replace('_', ' ', $ticket->estado)) }}
-                </span>
-            </p>
-
-            <p><strong>Creado el:</strong>
-                {{ $ticket->created_at->format('d/m/Y H:i') }}
-            </p>
+            <p><strong>Categoría:</strong> {{ ucfirst(str_replace('_', ' ', $ticket->categoria)) }}</p>
+            <p><strong>Prioridad:</strong> {{ ucfirst($ticket->prioridad) }}</p>
+            <p><strong>Estado:</strong> {{ ucfirst(str_replace('_', ' ', $ticket->estado)) }}</p>
+            <p><strong>Fecha:</strong> {{ $ticket->created_at->format('d/m/Y H:i') }}</p>
 
         </div>
     </div>
 
-    <a href="{{ route('tickets.index') }}" class="btn btn-secondary">
+    <a href="{{ route('tickets.index') }}" class="btn btn-link mt-3">
         ← Volver a tickets
     </a>
 

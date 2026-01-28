@@ -25,7 +25,7 @@ class TicketController extends Controller
     //Guardar ticket
     // Guardar ticket
     public function store(Request $request)
-{
+    {
     $request->validate([
         'nombre' => 'required|string|max:255',
         'apellidos' => 'required|string|max:255',
@@ -55,6 +55,16 @@ class TicketController extends Controller
     return redirect()
         ->route('tickets.index')
         ->with('success', 'Ticket creado correctamente');
+    }
+
+    public function show(Ticket $ticket)
+{
+    // Seguridad: solo ver tus propios tickets
+    if ($ticket->user_id !== auth()->id()) {
+        abort(403);
+    }
+
+    return view('tickets.show', compact('ticket'));
 }
 
 }
