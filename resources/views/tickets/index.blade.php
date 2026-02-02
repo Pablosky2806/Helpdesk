@@ -68,7 +68,15 @@
                         <td>
                             <a href="{{ route('tickets.show', $ticket) }}" class="btn btn-sm btn-info">Ver</a>
                             <a href="{{ route('tickets.edit', $ticket) }}"class="btn btn-sm btn-warning">Editar</a>
-                            <a href="#" class="btn btn-sm btn-danger">Eliminar</a>
+                                @if($ticket->estado !== 'cerrado')
+                            <form action="{{ route('tickets.close', $ticket) }}" method="POST" class="d-inline">
+                                @csrf
+                                 @method('PATCH')
+                                    <button type="submit" class="btn btn-sm btn-secondary">
+                                        Cerrar
+                                    </button>
+                            </form>
+                                @endif
                         </td>
                     </tr>
                 @endforeach

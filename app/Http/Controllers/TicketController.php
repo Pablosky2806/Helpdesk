@@ -103,5 +103,20 @@ public function update(Request $request, Ticket $ticket)
         ->with('success', 'Ticket actualizado correctamente');
 }
 
+    public function close(Ticket $ticket)
+{
+    if ($ticket->user_id !== auth()->id()) {
+        abort(403);
+    }
+
+    $ticket->update([
+        'estado' => 'cerrado'
+    ]);
+
+    return redirect()
+        ->route('tickets.index')
+        ->with('success', 'Ticket cerrado correctamente');
+}
+
 
 }
