@@ -58,13 +58,50 @@ class TicketController extends Controller
     }
 
     public function show(Ticket $ticket)
-{
+    {
     // Seguridad: solo ver tus propios tickets
     if ($ticket->user_id !== auth()->id()) {
         abort(403);
     }
 
     return view('tickets.show', compact('ticket'));
+    }
+
+    // Mostrar formulario de edición
+public function edit(Ticket $ticket)
+{
+    if ($ticket->user_id !== auth()->id()) {
+        abort(403);
+    }
+
+    return view('tickets.edit', compact('ticket'));
 }
+
+// Actualizar ticket
+public function update(Request $request, Ticket $ticket)
+{
+    if ($ticket->user_id !== auth()->id()) {
+        abort(403);
+    }
+
+    $request->validate([
+        'titulo' => 'required|string|max:255',
+        'descripcion' => 'required|string',
+        'categoria' => 'required',
+        'prioridad' => 'required',
+    ]);
+
+    $ticket->update([
+        'titulo' => $request->titulo,
+        'descripcion' => $request->descripcion,
+        'categoria' => $request->categoria,
+        'prioridad' => $request->prioridad,
+    ]);
+
+    return redirect()
+        ->route('tickets.index')
+        ->with('success', 'Ticket actualizado correctamente');
+}
+
 
 }
