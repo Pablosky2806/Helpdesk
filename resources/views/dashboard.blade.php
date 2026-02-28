@@ -125,6 +125,9 @@
         }
         .summary-row + .summary-row { border-top: 1px solid #f1f5f9; }
     </style>
+    
+
+    @vite(['resources/js/app.js'])
 </head>
 <body>
 
@@ -321,26 +324,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module">
-import { collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { db } from "/resources/js/firebase.js";
-
-const userId = @json(Auth::id());
-
-
-const q = query(
-    collection(db, "notifications"),
-    where("user_id", "==", userId)
-);
-
-onSnapshot(q, (snapshot) => {
-    snapshot.docChanges().forEach((change) => {
-        if (change.type === "added") {
-            alert(change.doc.data().mensaje);
-        }
-    });
-});
-</script>
 
 </body>
 </html>

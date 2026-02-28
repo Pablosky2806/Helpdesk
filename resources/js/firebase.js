@@ -1,14 +1,23 @@
+// Importaciones necesarias
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
+// Configuración Firebase
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "helpdesk-bf465.firebaseapp.com",
-    projectId: "helpdesk-bf465",
-    storageBucket: "helpdesk-bf465.appspot.com",
-    messagingSenderId: "18276183668",
-    appId: "1:18276183668:web:360089478b5907e5b4ab21"
+  apiKey: "AIzaSyATyVyZ5WWXQlLRSDkMNw05Jy8ZPWqCXX8",
+  authDomain: "helpdesk-bf465.firebaseapp.com",
+  projectId: "helpdesk-bf465",
+  storageBucket: "helpdesk-bf465.firebasestorage.app",
+  messagingSenderId: "18276183668",
+  appId: "1:18276183668:web:360089478b5907e5b4ab21",
+  measurementId: "G-DG7TX4GYQP"
 };
 
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+
+// 🔥 Inicializar Auth
+export const auth = getAuth(app);
+
+// 🔥 Proveedor Google
+export const provider = new GoogleAuthProvider();

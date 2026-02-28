@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'HelpDesk') }} - Gestor de Tickets</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -76,12 +77,39 @@
         .footer-custom { background: #f8f9fb; border-top: 1.5px solid #e0e3e8; padding: 32px 0; }
         .footer-custom p { font-size: 0.82rem; color: #98a2b3; margin: 0; }
 
+        /* Auth Modals */
+        .auth-modal .modal-content { border: none; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+        .auth-modal-header { background: linear-gradient(145deg, #1e3a5f 0%, #132744 100%); color: #fff; padding: 32px 32px 28px; text-align: center; position: relative; }
+        .auth-modal-header .btn-close { position: absolute; top: 16px; right: 16px; filter: brightness(0) invert(1); opacity: 0.7; }
+        .auth-modal-header .btn-close:hover { opacity: 1; }
+        .auth-modal-icon { width: 56px; height: 56px; background: rgba(255,255,255,0.12); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+        .auth-modal-icon i { font-size: 24px; color: #fff; }
+        .auth-modal-header h5 { font-weight: 700; font-size: 1.25rem; margin-bottom: 4px; }
+        .auth-modal-header p { font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-bottom: 0; }
+        .auth-modal-body { padding: 32px; }
+        .auth-modal-body .form-label { font-weight: 600; font-size: 0.85rem; color: #344054; margin-bottom: 6px; }
+        .auth-modal-body .form-control { border-radius: 12px; padding: 12px 16px; border: 1.5px solid #e0e3e8; font-size: 0.9rem; transition: all 0.2s; }
+        .auth-modal-body .form-control:focus { border-color: #1e3a5f; box-shadow: 0 0 0 3px rgba(30,58,95,0.1); }
+        .btn-auth-primary { background: #1e3a5f; color: #fff; border: none; border-radius: 12px; padding: 12px; font-weight: 600; font-size: 0.92rem; transition: all 0.2s; width: 100%; }
+        .btn-auth-primary:hover { background: #162d4a; color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(30,58,95,0.25); }
+        .btn-auth-outline { background: #fff; color: #344054; border: 1.5px solid #e0e3e8; border-radius: 12px; padding: 12px; font-weight: 600; font-size: 0.92rem; transition: all 0.2s; width: 100%; }
+        .btn-auth-outline:hover { border-color: #1e3a5f; color: #1e3a5f; background: rgba(30,58,95,0.03); }
+        .btn-auth-google { background: #fff; color: #344054; border: 1.5px solid #e0e3e8; border-radius: 12px; padding: 12px; font-weight: 600; font-size: 0.92rem; transition: all 0.2s; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-auth-google:hover { border-color: #db4437; color: #db4437; background: rgba(219,68,55,0.04); }
+        .auth-divider { display: flex; align-items: center; gap: 16px; margin: 20px 0; color: #98a2b3; font-size: 0.82rem; }
+        .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: #e0e3e8; }
+        .auth-switch { text-align: center; margin-top: 20px; font-size: 0.85rem; color: #6c757d; }
+        .auth-switch a { color: #1e3a5f; font-weight: 600; text-decoration: none; cursor: pointer; }
+        .auth-switch a:hover { text-decoration: underline; }
+
         @media (max-width: 768px) {
             .hero-title { font-size: 2rem; }
             .hero-stats { flex-direction: column; gap: 20px; }
             .story-card { padding: 32px 24px; }
             .cta-box { padding: 40px 24px; }
             .cta-box h3 { font-size: 1.5rem; }
+            .auth-modal-header { padding: 24px 24px 20px; }
+            .auth-modal-body { padding: 24px; }
         }
     </style>
 </head>
@@ -99,9 +127,9 @@
                     @auth
                         <a href="{{ url('/dashboard') }}" class="btn btn-nav btn-nav-primary">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-nav btn-nav-outline">Iniciar sesion</a>
+                        <button type="button" class="btn btn-nav btn-nav-outline" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesion</button>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn btn-nav btn-nav-primary">Registrarse</a>
+                            <button type="button" class="btn btn-nav btn-nav-primary" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</button>
                         @endif
                     @endauth
                 </div>
@@ -122,14 +150,14 @@
                     <p class="hero-subtitle">HelpDesk nacio de una necesidad real: organizar las incidencias, saber que dispositivo esta averiado, quien lo reporto y en que estado se encuentra. Todo en un solo lugar, sin caos ni papeles perdidos.</p>
                     <div class="d-flex gap-3 flex-wrap">
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn btn-hero btn-hero-primary">
+                            <button type="button" class="btn btn-hero btn-hero-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
                                 <i class="bi bi-rocket-takeoff me-2"></i>Empezar gratis
-                            </a>
+                            </button>
                         @endif
                         @if (Route::has('login'))
-                            <a href="{{ route('login') }}" class="btn btn-hero btn-hero-outline">
+                            <button type="button" class="btn btn-hero btn-hero-outline" data-bs-toggle="modal" data-bs-target="#loginModal">
                                 <i class="bi bi-box-arrow-in-right me-2"></i>Ya tengo cuenta
-                            </a>
+                            </button>
                         @endif
                     </div>
                     <div class="hero-stats">
@@ -253,14 +281,14 @@
                         <p>Crea tu cuenta en segundos y empieza a gestionar tus tickets de soporte de forma profesional. Sin complicaciones, sin papeles, sin caos.</p>
                         <div class="d-flex gap-3 justify-content-center flex-wrap">
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="btn btn-hero btn-hero-primary">
+                                <button type="button" class="btn btn-hero btn-hero-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
                                     <i class="bi bi-rocket-takeoff me-2"></i>Crear cuenta gratis
-                                </a>
+                                </button>
                             @endif
                             @if (Route::has('login'))
-                                <a href="{{ route('login') }}" class="btn btn-hero btn-hero-outline">
+                                <button type="button" class="btn btn-hero btn-hero-outline" data-bs-toggle="modal" data-bs-target="#loginModal">
                                     <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar sesion
-                                </a>
+                                </button>
                             @endif
                         </div>
                     </div>
@@ -277,6 +305,128 @@
         </div>
     </footer>
 
+    <!-- Login Modal -->
+    <div class="modal fade auth-modal" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="auth-modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    <div class="auth-modal-icon">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                    </div>
+                    <h5 id="loginModalLabel">Bienvenido de vuelta</h5>
+                    <p>Inicia sesion para acceder a tus tickets</p>
+                </div>
+                <div class="auth-modal-body">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contrasena</label>
+                        <input type="password" id="password" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="d-grid mb-4">
+                        <a href="{{ route('login') }}" class="btn btn-auth-primary">Iniciar Sesion</a>
+                    </div>
+                    <div class="auth-divider">o continuar con</div>
+                    <div class="d-grid gap-2 mb-2">
+                        <button id="login-btn" class="btn btn-auth-outline">
+                            <i class="bi bi-envelope me-2"></i>Iniciar sesion con Email
+                        </button>
+                        <button id="google-btn" class="btn btn-auth-google">
+                            <i class="bi bi-google me-2"></i>Iniciar sesion con Google
+                        </button>
+                    </div>
+                    <div class="auth-switch">
+                        No tienes cuenta? <a onclick="switchToRegister()">Registrate aqui</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal fade auth-modal" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="auth-modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    <div class="auth-modal-icon">
+                        <i class="bi bi-person-plus"></i>
+                    </div>
+                    <h5 id="registerModalLabel">Crea tu cuenta</h5>
+                    <p>Empieza a gestionar tus tickets como un profesional</p>
+                </div>
+                <div class="auth-modal-body">
+                    <div class="mb-3">
+                        <label for="reg-email" class="form-label">Email</label>
+                        <input type="email" id="reg-email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="reg-password" class="form-label">Contrasena</label>
+                        <input type="password" id="reg-password" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="d-grid mb-4">
+                        <a href="{{ route('register') }}" class="btn btn-auth-primary">Registrarse</a>
+                    </div>
+                    <div class="auth-divider">o continuar con</div>
+                    <div class="d-grid gap-2 mb-2">
+                        <button id="register-btn" class="btn btn-auth-outline">
+                            <i class="bi bi-envelope me-2"></i>Registrarse con Email
+                        </button>
+                        <button id="google-reg-btn" class="btn btn-auth-google">
+                            <i class="bi bi-google me-2"></i>Registrarse con Google
+                        </button>
+                    </div>
+                    <div class="auth-switch">
+                        Ya tienes cuenta? <a onclick="switchToLogin()">Inicia sesion</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Switch between login and register modals
+        function switchToRegister() {
+            var loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+            if (loginModal) loginModal.hide();
+            setTimeout(function() {
+                new bootstrap.Modal(document.getElementById('registerModal')).show();
+            }, 300);
+        }
+
+        function switchToLogin() {
+            var registerModal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+            if (registerModal) registerModal.hide();
+            setTimeout(function() {
+                new bootstrap.Modal(document.getElementById('loginModal')).show();
+            }, 300);
+        }
+
+        // Sync: when register modal opens, copy email/password fields for convenience
+        // The original IDs (email, password, register-btn, login-btn, google-btn) are kept
+        // in the login modal so your app.js Firebase code works directly.
+        // For the register modal, we use reg-email, reg-password, register-btn, google-reg-btn.
+        // If your app.js uses getElementById('register-btn') it will find it in the register modal.
+        // If your app.js uses getElementById('google-btn') it will find it in the login modal.
+        // google-reg-btn fires the same Google auth (same provider), so we hook it too:
+        document.addEventListener('DOMContentLoaded', function() {
+            var googleRegBtn = document.getElementById('google-reg-btn');
+            if (googleRegBtn) {
+                googleRegBtn.addEventListener('click', function() {
+                    // Trigger the same click as google-btn so Firebase Google auth fires
+                    var googleBtn = document.getElementById('google-btn');
+                    if (googleBtn) googleBtn.click();
+                });
+            }
+        });
+    </script>
+
+    @vite(['resources/js/app.js'])
+
 </body>
 </html>
