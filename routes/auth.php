@@ -12,6 +12,9 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
+    Route::post('auth/firebase/verify', [\App\Http\Controllers\Auth\FirebaseAuthController::class, 'verifyToken'])
+        ->name('firebase.verify');
+
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 

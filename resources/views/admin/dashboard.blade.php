@@ -1,6 +1,3 @@
-@php
-    $tickets = \App\Models\Ticket::all();
-@endphp
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -134,11 +131,14 @@
         <i class="bi bi-ticket-detailed"></i> Sistema de Tickets
     </div>
     <nav class="sidebar-nav">
-        <a href="{{ route('dashboard') }}" class="nav-link active">
+        <a href="{{ route('admin.dashboard') }}" class="nav-link active">
             <i class="bi bi-house-door"></i> Dashboard
         </a>
         <a href="{{ route('tickets.index') }}" class="nav-link">
             <i class="bi bi-collection"></i> Tickets
+        </a>
+        <a href="{{ route('admin.users.index') }}" class="nav-link">
+            <i class="bi bi-people"></i> Gestión Usuarios
         </a>
         <a href="{{ route('tickets.create') }}" class="nav-link">
             <i class="bi bi-plus-circle"></i> Crear Ticket
@@ -157,7 +157,7 @@
 
 <!-- Topbar -->
 <header class="topbar">
-    <h5>Dashboard</h5>
+    <h5>Panel de Control (Equipo de Soporte)</h5>
     <div class="d-flex align-items-center gap-3">
         <a href="{{ route('tickets.create') }}" class="btn btn-sm text-white" style="background:var(--primary);font-size:.82rem;font-weight:600;">
             <i class="bi bi-plus-lg me-1"></i> Nuevo Ticket
@@ -171,11 +171,7 @@
 <!-- Main -->
 <div class="main">
     <div class="main-inner">
-            <div class="mb-4">
-    <button onclick="testFirestore()" class="btn btn-danger">
-        Probar Firestore
-    </button>
-</div>
+
 
         <!-- Stat cards -->
         <div class="row g-3 mb-4">

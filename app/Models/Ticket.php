@@ -25,5 +25,6 @@ class Ticket extends Model
         'categoria',
         'prioridad',
         'estado',
+        'progreso',
     ];
 }

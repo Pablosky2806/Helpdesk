@@ -49,6 +49,7 @@ class TicketController extends Controller
         [
             'user_id' => auth()->id(),
             'estado' => 'abierto',
+            'progreso' => 0,
         ]
     ));
 
@@ -89,6 +90,7 @@ public function update(Request $request, Ticket $ticket)
         'descripcion' => 'required|string',
         'categoria' => 'required',
         'prioridad' => 'required',
+        'progreso' => 'nullable|integer|min:0|max:100',
     ]);
 
     $ticket->update([
@@ -96,6 +98,7 @@ public function update(Request $request, Ticket $ticket)
         'descripcion' => $request->descripcion,
         'categoria' => $request->categoria,
         'prioridad' => $request->prioridad,
+        'progreso' => $request->progreso ?? $ticket->progreso,
     ]);
 
     return redirect()

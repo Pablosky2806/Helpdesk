@@ -51,6 +51,22 @@
             </select>
         </div>
 
+        <div class="mb-4 pt-3 border-top">
+            <label class="form-label d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-primary">Progreso de Reparación</span>
+                <span id="progresoValor" class="badge bg-primary fs-6">{{ $ticket->progreso }}%</span>
+            </label>
+            <input type="range" class="form-range" name="progreso" id="progreso" 
+                   min="0" max="100" step="5" value="{{ $ticket->progreso }}"
+                   oninput="document.getElementById('progresoValor').innerText = this.value + '%'">
+            
+            <div class="d-flex justify-content-between text-muted" style="font-size: 0.8rem;">
+                <span>0%<br><small>Recibido</small></span>
+                <span class="text-center">50%<br><small>En Taller</small></span>
+                <span class="text-end">100%<br><small>Listo</small></span>
+            </div>
+        </div>
+
         <button class="btn btn-warning">Actualizar ticket</button>
     </form>
 </div>

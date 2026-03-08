@@ -111,11 +111,73 @@
                 <button type="submit" class="btn-auth">Crear cuenta</button>
             </form>
 
+            <div class="mt-4 text-center pb-3">
+                <span class="text-muted small">O continuar con</span>
+            </div>
+            
+            <button type="button" class="btn-auth mb-4" id="btn-google-login" style="background:#fff; color:#333; border: 1.5px solid #e0e3e8; display:flex; align-items:center; justify-content:center; gap: 10px;">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="18">
+                Registrarse con Google
+            </button>
+
             <p class="text-center mt-4 mb-0" style="font-size: 0.88rem; color: #6c757d;">
-                Ya tienes cuenta? <a href="{{ route('login') }}" class="link-primary">Inicia sesion</a>
+                ¿Ya tienes cuenta? <a href="{{ route('login') }}" class="link-primary">Inicia sesión</a>
             </p>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+
+        // TODO: Reemplaza esto con la configuración de tu App Web en la consola de Firebase
+        const firebaseConfig = {
+            apiKey: "{{ env('VITE_FIREBASE_API_KEY') }}",
+            authDomain: "{{ env('VITE_FIREBASE_AUTH_DOMAIN') }}",
+            projectId: "{{ env('VITE_FIREBASE_PROJECT_ID') }}",
+            storageBucket: "{{ env('VITE_FIREBASE_STORAGE_BUCKET') }}",
+            messagingSenderId: "{{ env('VITE_FIREBASE_MESSAGING_SENDER_ID') }}",
+            appId: "{{ env('VITE_FIREBASE_APP_ID') }}",
+            measurementId: "{{ env('VITE_FIREBASE_MEASUREMENT_ID') }}"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        document.getElementById('btn-google-login').addEventListener('click', () => {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    result.user.getIdToken().then((idToken) => {
+                        // Enviar el idToken al backend de Laravel
+                        fetch('{{ route("firebase.verify") }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({ idToken: idToken })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success && data.redirect) {
+                                window.location.href = data.redirect;
+                            } else {
+                                alert('Error al iniciar sesión: ' + (data.message || 'Desconocido'));
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error en fetch:', error);
+                            alert('Hubo un problema comunicándose con el servidor.');
+                        });
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error en Firebase Auth:', error);
+                });
+        });
+    </script>
 </body>
 </html>
