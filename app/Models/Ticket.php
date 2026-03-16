@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\TicketEstadoActualizado;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -70,6 +71,11 @@ class Ticket extends Model
         
         if ($saved && $this->wasChanged('estado') && $estadoOriginal !== $this->estado) {
             $this->registrarCambio('cambio_estado', $this->estado, 'Cambio de estado automático');
+            
+            // Enviar notificación por email al usuario (temporalmente desactivado)
+            // if ($this->user) {
+            //     $this->user->notify(new TicketEstadoActualizado($this, $estadoOriginal, $this->estado));
+            // }
         }
         
         return $saved;

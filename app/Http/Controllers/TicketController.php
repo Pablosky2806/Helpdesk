@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use App\Notifications\TicketCreado;
+use App\Notifications\TicketEstadoActualizado;
+use App\Notifications\TicketCerrado;
 use Illuminate\Http\Request;
 
 
@@ -55,6 +58,9 @@ class TicketController extends Controller
 
     // Registrar creación en el historial
     $ticket->registrarCambio('creacion', 'abierto', 'Ticket creado por el usuario');
+
+    // Enviar notificación por email al usuario (temporalmente desactivado)
+    // $ticket->user->notify(new TicketCreado($ticket));
 
     return redirect()
         ->route('tickets.index')
@@ -126,6 +132,9 @@ public function update(Request $request, Ticket $ticket)
 
     // Registrar cierre en el historial
     $ticket->registrarCambio('cierre', 'cerrado', 'Ticket cerrado por el usuario');
+
+    // Enviar notificación por email al correo del formulario
+    $ticket->user->notify(new TicketCerrado($ticket));
 
     return redirect()
         ->route('tickets.index')
