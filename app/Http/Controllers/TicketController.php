@@ -44,7 +44,7 @@ class TicketController extends Controller
         'prioridad' => 'required|in:baja,media,alta',
     ]);
 
-    Ticket::create(array_merge(
+    $ticket = Ticket::create(array_merge(
         $request->all(),
         [
             'user_id' => auth()->id(),
@@ -52,6 +52,9 @@ class TicketController extends Controller
             'progreso' => 0,
         ]
     ));
+
+    // Registrar creación en el historial
+    $ticket->registrarCambio('creacion', 'abierto', 'Ticket creado por el usuario');
 
     return redirect()
         ->route('tickets.index')
@@ -93,6 +96,8 @@ public function update(Request $request, Ticket $ticket)
         'progreso' => 'nullable|integer|min:0|max:100',
     ]);
 
+    $estadoAnterior = $ticket->estado;
+    
     $ticket->update([
         'titulo' => $request->titulo,
         'descripcion' => $request->descripcion,
@@ -100,6 +105,9 @@ public function update(Request $request, Ticket $ticket)
         'prioridad' => $request->prioridad,
         'progreso' => $request->progreso ?? $ticket->progreso,
     ]);
+
+    // Registrar actualización en el historial
+    $ticket->registrarCambio('actualizacion', null, 'Ticket actualizado por el usuario');
 
     return redirect()
         ->route('tickets.index')
@@ -115,6 +123,9 @@ public function update(Request $request, Ticket $ticket)
     $ticket->update([
         'estado' => 'cerrado'
     ]);
+
+    // Registrar cierre en el historial
+    $ticket->registrarCambio('cierre', 'cerrado', 'Ticket cerrado por el usuario');
 
     return redirect()
         ->route('tickets.index')
