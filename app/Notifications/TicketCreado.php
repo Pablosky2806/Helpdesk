@@ -46,7 +46,8 @@ class TicketCreado extends Notification implements ShouldQueue
             ->line('**Categoría:** ' . ucfirst(str_replace('_', ' ', $this->ticket->categoria)))
             ->line('**Prioridad:** ' . ucfirst($this->ticket->prioridad))
             ->line('**Estado:** ' . ucfirst(str_replace('_', ' ', $this->ticket->estado)))
-            ->action('Ver Ticket', route('tickets.show', $this->ticket->id))
+            ->action('Ver Estado del Ticket', url('/estado/' . $this->ticket->token_acceso))
+            ->line('Puedes verificar el estado en cualquier momento usando el enlace anterior.')
             ->line('Nos pondremos en contacto contigo pronto.')
             ->salutation('Gracias por tu paciencia.\\n**Equipo HelpDesk**');
     }

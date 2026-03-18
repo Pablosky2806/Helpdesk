@@ -21,23 +21,33 @@ class RoleMiddleware
 
         $user = auth()->user();
 
-        // Verificar si el usuario tiene el rol requerido
-        switch ($role) {
-            case 'admin':
-                if (!$user->isAdmin()) {
-                    abort(403, 'Acceso denegado: Se requiere rol de administrador');
-                }
-                break;
-            case 'tecnico':
-                if (!$user->isTecnico() && !$user->isAdmin()) {
-                    abort(403, 'Acceso denegado: Se requiere rol de técnico');
-                }
-                break;
-            case 'user':
-                if (!$user->isUser()) {
-                    abort(403, 'Acceso denegado: Se requiere rol de usuario');
-                }
-                break;
+        // Separar roles por coma si hay múltiples
+        $roles = explode(',', $role);
+        $hasRole = false;
+
+        // Verificar si el usuario tiene alguno de los roles requeridos
+        foreach ($roles as $requiredRole) {
+            switch (trim($requiredRole)) {
+                case 'admin':
+                    if ($user->isAdmin()) {
+                        $hasRole = true;
+                    }
+                    break;
+                case 'tecnico':
+                    if ($user->isTecnico()) {
+                        $hasRole = true;
+                    }
+                    break;
+                case 'user':
+                    if ($user->isUser()) {
+                        $hasRole = true;
+                    }
+                    break;
+            }
+        }
+
+        if (!$hasRole) {
+            abort(403, 'Acceso denegado: Se requiere rol específico');
         }
 
         return $next($request);

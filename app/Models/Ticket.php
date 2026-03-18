@@ -12,6 +12,7 @@ class Ticket extends Model
 
     protected $fillable = [
         'user_id',
+        'token_acceso',
         'nombre',
         'apellidos',
         'email',
@@ -85,9 +86,9 @@ class Ticket extends Model
     public function getEstadoFormateadoAttribute()
     {
         return match($this->estado) {
-            'abierto' => '🔴 Abierto',
-            'en_proceso' => '🟡 En Proceso',
-            'cerrado' => '🟢 Cerrado',
+            'abierto' => 'Abierto',
+            'en_proceso' => 'En Proceso',
+            'cerrado' => 'Cerrado',
             default => $this->estado,
         };
     }
@@ -96,9 +97,9 @@ class Ticket extends Model
     public function getPrioridadFormateadaAttribute()
     {
         return match($this->prioridad) {
-            'baja' => '🟢 Baja',
-            'media' => '🟡 Media',
-            'alta' => '🔴 Alta',
+            'baja' => 'Baja',
+            'media' => 'Media',
+            'alta' => 'Alta',
             default => $this->prioridad,
         };
     }
@@ -110,5 +111,23 @@ class Ticket extends Model
             return $this->created_at->diffForHumans($this->updated_at);
         }
         return 'No cerrado';
+    }
+
+    // Método para generar token único
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($ticket) {
+            if (empty($ticket->token_acceso)) {
+                $ticket->token_acceso = uniqid('tk_', true);
+            }
+        });
+    }
+
+    // Método para obtener URL de estado público
+    public function getUrlEstadoAttribute()
+    {
+        return route('estado.ticket', $this->token_acceso);
     }
 }

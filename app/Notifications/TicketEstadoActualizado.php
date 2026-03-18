@@ -52,11 +52,11 @@ class TicketEstadoActualizado extends Notification implements ShouldQueue
             ->greeting('¡Hola ' . $this->ticket->nombre . '!')
             ->line('Tu ticket ha sido actualizado.')
             ->line('**Ticket ID:** #' . $this->ticket->id)
-            ->line('**Asunto:** ' . $this->ticket->titulo)
-            ->line('**Cambio de estado:** ' . ucfirst(str_replace('_', ' ', $this->estadoAnterior)) . ' → ' . ucfirst(str_replace('_', ' ', $this->estadoNuevo)))
-            ->action('Ver Ticket', route('tickets.show', $this->ticket->id))
-            ->line('Gracias por tu comprensión.')
-            ->salutation('**Equipo HelpDesk**');
+            ->line('**Cambio de Estado:** ' . ucfirst($this->estado_anterior) . ' → ' . ucfirst($this->estado_nuevo))
+            ->line('**Título:** ' . $this->ticket->titulo)
+            ->action('Ver Estado del Ticket', url('/estado/' . $this->ticket->token_acceso))
+            ->line('Puedes verificar el estado en cualquier momento usando el enlace anterior.')
+            ->salutation('Gracias por tu paciencia.\\n**Equipo HelpDesk**');
     }
 
     /**

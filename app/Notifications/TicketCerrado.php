@@ -51,13 +51,11 @@ class TicketCerrado extends Notification implements ShouldQueue
             ->line('¡Buenas noticias! Tu ticket ha sido resuelto y cerrado.')
             ->line('**Resumen de tu ticket:**')
             ->line('**Ticket ID:** #' . $this->ticket->id)
-            ->line('**Asunto:** ' . $this->ticket->titulo)
-            ->line('**Categoría:** ' . ucfirst(str_replace('_', ' ', $this->ticket->categoria)))
+            ->line('**Título:** ' . $this->ticket->titulo)
             ->line('**Tiempo de resolución:** ' . $this->ticket->tiempo_resolucion)
-            ->line('Si el problema persiste o tienes alguna duda, no dudes en contactarnos.')
-            ->action('Ver Ticket Cerrado', route('tickets.show', $this->ticket->id))
-            ->line('¡Gracias por tu paciencia!')
-            ->salutation('**Equipo HelpDesk**');
+            ->action('Ver Estado del Ticket', url('/estado/' . $this->ticket->token_acceso))
+            ->line('Si tienes alguna pregunta, no dudes en contactarnos.')
+            ->salutation('Gracias por usar HelpDesk.\n**Equipo HelpDesk**');
     }
 
     /**

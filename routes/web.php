@@ -4,7 +4,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\EstadoTicketController;
 use Illuminate\Support\Facades\Route;
+
+// Ruta pública para estado del ticket (sin autenticación)
+Route::get('/estado/{token}', [EstadoTicketController::class, 'show'])->name('estado.ticket');
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,10 +43,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
     Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+    Route::get('/tickets/success/{ticket}', [TicketController::class, 'success'])->name('tickets.success');
     Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
 
-    // Tickets (solo técnicos)
-    Route::middleware('role:tecnico')->group(function () {
+    // Tickets (solo técnicos y admin)
+    Route::middleware('role:tecnico,admin')->group(function () {
         Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit'])->name('tickets.edit');
         Route::put('/tickets/{ticket}', [TicketController::class, 'update'])->name('tickets.update');
         Route::patch('/tickets/{ticket}/close', [TicketController::class, 'close'])->name('tickets.close');
