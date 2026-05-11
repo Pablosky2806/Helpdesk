@@ -99,7 +99,7 @@
                     @auth
                         <a href="{{ url('/dashboard') }}" class="btn btn-nav btn-nav-primary">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-nav btn-nav-outline">Iniciar sesion</a>
+                        <a href="{{ route('login') }}" class="btn btn-nav btn-nav-outline">Iniciar sesión</a>
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="btn btn-nav btn-nav-primary">Registrarse</a>
                         @endif
@@ -119,7 +119,7 @@
                         Gestor de tickets profesional
                     </div>
                     <h1 class="hero-title">Deja de usar post-its.<br>Gestiona tus tickets<br>como un profesional.</h1>
-                    <p class="hero-subtitle">HelpDesk nacio de una necesidad real: organizar las incidencias, saber que dispositivo esta averiado, quien lo reporto y en que estado se encuentra. Todo en un solo lugar, sin caos ni papeles perdidos.</p>
+                    <p class="hero-subtitle">HelpDesk nació de una necesidad real: organizar las incidencias, saber que dispositivo esta averiado, quien lo reporto y en que estado se encuentra. Todo en un solo lugar, sin caos ni papeles perdidos.</p>
                     <div class="d-flex gap-3 flex-wrap">
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="btn btn-hero btn-hero-primary">
@@ -259,7 +259,7 @@
                             @endif
                             @if (Route::has('login'))
                                 <a href="{{ route('login') }}" class="btn btn-hero btn-hero-outline">
-                                    <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar sesion
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar sesión
                                 </a>
                             @endif
                         </div>

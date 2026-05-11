@@ -29,12 +29,12 @@ class RoleMiddleware
         foreach ($roles as $requiredRole) {
             switch (trim($requiredRole)) {
                 case 'admin':
-                    if ($user->isAdmin()) {
+                    if ($user->isAdmin() || $user->isTecnico()) {
                         $hasRole = true;
                     }
                     break;
                 case 'tecnico':
-                    if ($user->isTecnico()) {
+                    if ($user->isAdmin() || $user->isTecnico()) {
                         $hasRole = true;
                     }
                     break;

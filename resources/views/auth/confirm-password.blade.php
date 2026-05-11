@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Confirmar contrasena - {{ config('app.name', 'Laravel') }}</title>
+    <title>Confirmar contraseña - {{ config('app.name', 'Laravel') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -62,17 +62,17 @@
             </div>
         </div>
         <div class="auth-form-area">
-            <h3>Confirmar contrasena</h3>
-            <p class="desc">Esta es una zona segura de la aplicacion. Por favor, confirma tu contrasena antes de continuar.</p>
+            <h3>Confirmar contraseña</h3>
+            <p class="desc">Esta es una zona segura de la aplicación. Por favor, confirma tu contraseña antes de continuar.</p>
 
             <form method="POST" action="{{ route('password.confirm') }}">
                 @csrf
 
                 <div class="mb-4">
-                    <label for="password" class="form-label">Contrasena</label>
+                    <label for="password" class="form-label">Contraseña</label>
                     <input id="password" type="password" name="password"
                            class="form-control @error('password') is-invalid @enderror"
-                           placeholder="Tu contrasena" required autocomplete="current-password">
+                           placeholder="Tu contraseña" required autocomplete="current-password">
                     @error('password')
                         <div class="invalid-feedback-custom">{{ $message }}</div>
                     @enderror
@@ -82,7 +82,7 @@
             </form>
 
             <p class="text-center mt-4 mb-0" style="font-size: 0.88rem; color: #6c757d;">
-                Volver al <a href="{{ route('login') }}" class="link-primary">inicio de sesion</a>
+                Volver al <a href="{{ route('login') }}" class="link-primary">inicio de sesión</a>
             </p>
         </div>
     </div>

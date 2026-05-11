@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Restablecer contrasena - {{ config('app.name', 'Laravel') }}</title>
+    <title>Restablecer contraseña - {{ config('app.name', 'Laravel') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -62,8 +62,8 @@
             </div>
         </div>
         <div class="auth-form-area">
-            <h3>Restablecer contrasena</h3>
-            <p class="desc">Introduce tu nueva contrasena para recuperar el acceso a tu cuenta.</p>
+            <h3>Restablecer contraseña</h3>
+            <p class="desc">Introduce tu nueva contraseña para recuperar el acceso a tu cuenta.</p>
 
             <form method="POST" action="{{ route('password.store') }}">
                 @csrf
@@ -81,30 +81,30 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="password" class="form-label">Nueva contrasena</label>
+                    <label for="password" class="form-label">Nueva contraseña</label>
                     <input id="password" type="password" name="password"
                            class="form-control @error('password') is-invalid @enderror"
-                           placeholder="Minimo 8 caracteres" required autocomplete="new-password">
+                           placeholder="Mínimo 8 caracteres" required autocomplete="new-password">
                     @error('password')
                         <div class="invalid-feedback-custom">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="mb-4">
-                    <label for="password_confirmation" class="form-label">Confirmar contrasena</label>
+                    <label for="password_confirmation" class="form-label">Confirmar contraseña</label>
                     <input id="password_confirmation" type="password" name="password_confirmation"
                            class="form-control @error('password_confirmation') is-invalid @enderror"
-                           placeholder="Repite tu contrasena" required autocomplete="new-password">
+                           placeholder="Repite tu contraseña" required autocomplete="new-password">
                     @error('password_confirmation')
                         <div class="invalid-feedback-custom">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <button type="submit" class="btn-auth">Restablecer contrasena</button>
+                <button type="submit" class="btn-auth">Restablecer contraseña</button>
             </form>
 
             <p class="text-center mt-4 mb-0" style="font-size: 0.88rem; color: #6c757d;">
-                Recordaste tu contrasena? <a href="{{ route('login') }}" class="link-primary">Inicia sesion</a>
+                Recordaste tu contraseña? <a href="{{ route('login') }}" class="link-primary">Inicia sesión</a>
             </p>
         </div>
     </div>

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Recuperar contrasena - {{ config('app.name', 'Laravel') }}</title>
+    <title>Recuperar contraseña - {{ config('app.name', 'Laravel') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -62,8 +62,8 @@
             </div>
         </div>
         <div class="auth-form-area">
-            <h3>Recuperar contrasena</h3>
-            <p class="desc">Olvidaste tu contrasena? No hay problema. Introduce tu email y te enviaremos un enlace para restablecerla.</p>
+            <h3>Recuperar contraseña</h3>
+            <p class="desc">Olvidaste tu contraseña? No hay problema. Introduce tu email y te enviaremos un enlace para restablecerla.</p>
 
             @if (session('status'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 0.85rem; border-radius: 10px;">
@@ -85,11 +85,11 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn-auth">Enviar enlace de recuperacion</button>
+                <button type="submit" class="btn-auth">Enviar enlace de recuperación</button>
             </form>
 
             <p class="text-center mt-4 mb-0" style="font-size: 0.88rem; color: #6c757d;">
-                Recordaste tu contrasena? <a href="{{ route('login') }}" class="link-primary">Inicia sesion</a>
+                Recordaste tu contraseña? <a href="{{ route('login') }}" class="link-primary">Inicia sesión</a>
             </p>
         </div>
     </div>

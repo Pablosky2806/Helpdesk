@@ -146,7 +146,7 @@
         <form method="POST" action="{{ route('logout') }}" class="mt-1">
             @csrf
             <button type="submit" style="background:none;border:none;color:#ef4444;font-size:.8rem;font-weight:500;padding:0;cursor:pointer;">
-                <i class="bi bi-box-arrow-left me-1"></i>Cerrar sesion
+                <i class="bi bi-box-arrow-left me-1"></i>Cerrar sesión
             </button>
         </form>
     </div>
@@ -295,26 +295,5 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module">
-import { collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { db } from "/resources/js/firebase.js";
-
-const userId = @json(Auth::id());
-
-
-const q = query(
-    collection(db, "notifications"),
-    where("user_id", "==", userId)
-);
-
-onSnapshot(q, (snapshot) => {
-    snapshot.docChanges().forEach((change) => {
-        if (change.type === "added") {
-            alert(change.doc.data().mensaje);
-        }
-    });
-});
-</script>
-
 </body>
 </html>

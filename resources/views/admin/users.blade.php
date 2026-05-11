@@ -17,48 +17,153 @@
         }
         * { font-family: 'Instrument Sans', system-ui, sans-serif; }
         body { margin: 0; background: #f4f6fb; }
-        
-        /* Topbar & Sidebar reducidos para la demo */
-        .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-w); background: #fff; border-right: 1px solid #eaecf0; display: flex; flex-direction: column; z-index: 100; }
-        .sidebar-brand { height: var(--topbar-h); display: flex; align-items: center; gap: 10px; padding: 0 24px; font-weight: 700; font-size: 1rem; color: var(--primary); border-bottom: 1px solid #eaecf0; }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed; top: 0; left: 0; bottom: 0;
+            width: var(--sidebar-w);
+            background: #fff;
+            border-right: 1px solid #eaecf0;
+            display: flex; flex-direction: column;
+            z-index: 100;
+        }
+        .sidebar-brand {
+            height: var(--topbar-h);
+            display: flex; align-items: center; gap: 10px;
+            padding: 0 24px;
+            font-weight: 700; font-size: 1rem; color: var(--primary);
+            border-bottom: 1px solid #eaecf0;
+        }
+        .sidebar-brand i { font-size: 1.2rem; }
         .sidebar-nav { padding: 16px 12px; flex: 1; }
-        .sidebar-nav .nav-link { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 8px; font-size: .875rem; font-weight: 500; color: #475569; text-decoration: none; transition: all .15s; margin-bottom: 2px; }
+        .sidebar-nav .nav-link {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 16px; border-radius: 8px;
+            font-size: .875rem; font-weight: 500;
+            color: #475569; text-decoration: none;
+            transition: all .15s;
+            margin-bottom: 2px;
+        }
         .sidebar-nav .nav-link:hover { background: #f8fafc; color: var(--primary); }
-        .sidebar-nav .nav-link.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+        .sidebar-nav .nav-link.active {
+            background: var(--primary-light); color: var(--primary); font-weight: 600;
+        }
+        .sidebar-nav .nav-link i { font-size: 1.1rem; width: 20px; text-align: center; }
+        .sidebar-footer {
+            padding: 16px 20px;
+            border-top: 1px solid #eaecf0;
+            font-size: .82rem; color: #64748b;
+        }
+
+        /* Topbar */
+        .topbar {
+            position: fixed; top: 0; left: var(--sidebar-w); right: 0;
+            height: var(--topbar-h);
+            background: #fff; border-bottom: 1px solid #eaecf0;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 28px; z-index: 99;
+        }
+        .topbar h5 { font-size: 1rem; font-weight: 600; color: #1e293b; margin: 0; }
+        .avatar {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: var(--primary); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 600; font-size: .8rem;
+        }
+
+        /* Main */
+        .main { margin-left: var(--sidebar-w); padding-top: var(--topbar-h); }
+        .main-inner { padding: 28px; }
+
+        /* Table section */
+        .section-card {
+            background: #fff; border-radius: 12px; border: 1px solid #eaecf0;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 18px 22px; border-bottom: 1px solid #eaecf0;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .section-header h6 { font-weight: 600; font-size: .9rem; color: #1e293b; margin: 0; }
+        .table-dash th {
+            background: #f8fafc; font-size: .75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: .4px; color: #64748b;
+            padding: 10px 20px; border: none;
+        }
+        .table-dash tbody td {
+            padding: 12px 20px; font-size: .85rem; color: #334155;
+            border-bottom: 1px solid #f1f5f9; vertical-align: middle;
+        }
+        .table-dash tbody tr:last-child td { border-bottom: none; }
+        .badge-pill {
+            font-size: .7rem; font-weight: 600; padding: 3px 10px;
+            border-radius: 50px;
+        }
         
-        .topbar { position: fixed; top: 0; left: var(--sidebar-w); right: 0; height: var(--topbar-h); background: #fff; border-bottom: 1px solid #eaecf0; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; z-index: 99; }
-        .main { margin-left: var(--sidebar-w); padding-top: var(--topbar-h); min-height: 100vh; }
-        .main-inner { padding: 32px; max-width: 1200px; margin: 0 auto; }
-        
-        .section-card { background: #fff; border-radius: 12px; border: 1px solid #eaecf0; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .section-header { padding: 20px 24px; border-bottom: 1px solid #eaecf0; background: #fafafa; }
-        
-        .table-users th { background: #f8fafc; font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: #64748b; padding: 12px 24px; border-bottom: 2px solid #eaecf0; }
-        .table-users td { padding: 16px 24px; font-size: .85rem; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+        /* Botones de acción */
+        .btn-action {
+            padding: 6px 12px; border-radius: 6px;
+            font-size: .75rem; font-weight: 500;
+            text-decoration: none; border: none;
+            cursor: pointer; transition: all .15s;
+        }
+        .btn-edit { background: #f59e0b; color: #fff; }
+        .btn-edit:hover { background: #d97706; color: #fff; }
+        .btn-delete { background: #ef4444; color: #fff; }
+        .btn-delete:hover { background: #dc2626; color: #fff; }
+        .btn-role { background: #6b7280; color: #fff; }
+        .btn-role:hover { background: #374151; color: #fff; }
     </style>
 </head>
 <body>
 
+<!-- Sidebar -->
 <aside class="sidebar">
-    <div class="sidebar-brand"><i class="bi bi-ticket-detailed"></i> Sistema de Tickets</div>
+    <div class="sidebar-brand">
+        <i class="bi bi-ticket-detailed"></i> Sistema de Tickets
+    </div>
     <nav class="sidebar-nav">
-        <a href="{{ route('admin.dashboard') }}" class="nav-link"><i class="bi bi-house-door"></i> Dashboard</a>
-        <a href="{{ route('admin.users.index') }}" class="nav-link active"><i class="bi bi-people"></i> Gestión Usuarios</a>
-        <a href="{{ route('tickets.index') }}" class="nav-link"><i class="bi bi-collection"></i> Tickets</a>
+        <a href="{{ route('admin.dashboard') }}" class="nav-link">
+            <i class="bi bi-house-door"></i> Dashboard
+        </a>
+        <a href="{{ route('admin.users.index') }}" class="nav-link active">
+            <i class="bi bi-people"></i> Gestión Usuarios
+        </a>
+        <a href="{{ route('tickets.index') }}" class="nav-link">
+            <i class="bi bi-collection"></i> Tickets
+        </a>
+        <a href="{{ route('tickets.create') }}" class="nav-link">
+            <i class="bi bi-plus-circle"></i> Crear Ticket
+        </a>
     </nav>
+    <div class="sidebar-footer">
+        <div class="fw-semibold" style="color:#334155;">{{ Auth::user()->name ?? 'Usuario' }}</div>
+        <form method="POST" action="{{ route('logout') }}" class="mt-1">
+            @csrf
+            <button type="submit" style="background:none;border:none;color:#ef4444;font-size:.8rem;font-weight:500;padding:0;cursor:pointer;">
+                <i class="bi bi-box-arrow-left me-1"></i>Cerrar sesión
+            </button>
+        </form>
+    </div>
 </aside>
 
+<!-- Topbar -->
 <header class="topbar">
-    <h5 class="m-0 fw-bold" style="font-size: 1rem;">Administración de Usuarios</h5>
-    <div class="d-flex align-items-center gap-3 text-muted" style="font-size: .85rem;">
-        Admin: <span class="fw-bold text-dark">{{ Auth::user()->name ?? 'Administrador' }}</span>
-        <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary btn-sm ms-2">Volver</a>
+    <h5>Gestión de Usuarios</h5>
+    <div class="d-flex align-items-center gap-3">
+        <a href="{{ route('admin.users.create') }}" class="btn btn-sm text-white" style="background:var(--primary);font-size:.82rem;font-weight:600;">
+            <i class="bi bi-plus-lg me-1"></i> Nuevo Usuario
+        </a>
+        <div class="avatar">
+            {{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 1)) }}
+        </div>
     </div>
 </header>
 
+<!-- Main -->
 <div class="main">
     <div class="main-inner">
-        
+
         @if(session('success'))
             <div class="alert alert-success border-0 shadow-sm rounded-3 mb-4 d-flex align-items-center">
                 <i class="bi bi-check-circle-fill me-2 fs-5"></i> {{ session('success') }}
@@ -66,20 +171,20 @@
         @endif
 
         <div class="section-card">
-            <div class="section-header d-flex justify-content-between align-items-center">
-                <h6 class="m-0 fw-bold text-dark"><i class="bi bi-person-lines-fill me-2"></i> Usuarios del Sistema</h6>
-                <span class="badge bg-primary rounded-pill">{{ $users->count() }} total</span>
+            <div class="section-header">
+                <h6><i class="bi bi-people me-2"></i> Usuarios del Sistema</h6>
+                <span class="badge-pill bg-primary">{{ $users->count() }} usuarios</span>
             </div>
             
             <div class="table-responsive">
-                <table class="table table-users mb-0">
+                <table class="table table-dash mb-0">
                     <thead>
                         <tr>
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Fecha Registro</th>
-                            <th>Rol / Permisos</th>
-                            <th class="text-end">Acciones</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,23 +197,38 @@
                                 @endif
                             </td>
                             <td>{{ $user->email }}</td>
-                            <td class="text-muted">{{ $user->created_at->format('d M Y') }}</td>
+                            <td style="color:#94a3b8;font-size:.82rem;">{{ $user->created_at->format('d/m/Y') }}</td>
                             <td>
                                 <!-- Formulario de Cambio de Rol -->
                                 <form action="{{ route('admin.users.updateRole', $user) }}" method="POST" class="d-flex align-items-center gap-2">
                                     @csrf
                                     @method('PATCH')
                                     <select name="role" class="form-select form-select-sm" style="width: 140px; font-size: .8rem;">
-                                        <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>Cliente (User)</option>
-                                        <option value="tecnico" {{ $user->role === 'tecnico' ? 'selected' : '' }}>Trabajador (Técnico)</option>
+                                        <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>Cliente</option>
+                                        <option value="tecnico" {{ $user->role === 'tecnico' ? 'selected' : '' }}>Técnico</option>
                                         <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Administrador</option>
                                     </select>
-                            </td>
-                            <td class="text-end">
-                                    <button type="submit" class="btn btn-sm btn-primary" style="font-size: .75rem; font-weight: 500;" {{ $user->id === Auth::id() ? 'disabled' : '' }}>
+                                    <button type="submit" class="btn-action btn-role" {{ $user->id === Auth::id() ? 'disabled' : '' }}>
                                         <i class="bi bi-save me-1"></i> Actualizar
                                     </button>
                                 </form>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <!-- Botón Editar -->
+                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn-action btn-edit" {{ $user->id === Auth::id() ? 'disabled' : '' }}>
+                                        <i class="bi bi-pencil me-1"></i> Editar
+                                    </a>
+                                    
+                                    <!-- Botón Eliminar -->
+                                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="delete-form" {{ $user->id === Auth::id() ? 'd-none' : '' }}>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-action btn-delete" onclick="return confirmDelete('{{ $user->name }}')">
+                                            <i class="bi bi-trash me-1"></i> Eliminar
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         @endforeach
@@ -120,5 +240,78 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function confirmDelete(userName) {
+    return confirm('¿Estás seguro de que deseas eliminar al usuario "' + userName + '"?\n\nEsta acción no se puede deshacer.');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Manejar formularios de eliminación con AJAX
+    const deleteForms = document.querySelectorAll('.delete-form');
+    
+    deleteForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Deshabilitar botón y mostrar loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> Eliminando...';
+            
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': formData.get('_token'),
+                    'X-HTTP-Method-Override': 'DELETE'
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Mostrar mensaje de éxito
+                    const alertDiv = document.createElement('div');
+                    alertDiv.className = 'alert alert-success border-0 shadow-sm rounded-3 mb-4 d-flex align-items-center';
+                    alertDiv.innerHTML = '<i class="bi bi-check-circle-fill me-2 fs-5"></i> ' + data.message;
+                    
+                    // Insertar alerta antes de la tabla
+                    const mainInner = document.querySelector('.main-inner');
+                    const sectionCard = document.querySelector('.section-card');
+                    mainInner.insertBefore(alertDiv, sectionCard);
+                    
+                    // Remover la fila eliminada
+                    const row = form.closest('tr');
+                    row.remove();
+                    
+                    // Actualizar contador
+                    const badge = document.querySelector('.badge-pill');
+                    const currentCount = parseInt(badge.textContent);
+                    badge.textContent = (currentCount - 1) + ' usuarios';
+                    
+                    // Remover alerta después de 3 segundos
+                    setTimeout(() => {
+                        alertDiv.remove();
+                    }, 3000);
+                } else {
+                    alert('Error al eliminar usuario: ' + (data.message || 'Error desconocido'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al eliminar usuario. Por favor, inténtalo de nuevo.');
+            })
+            .finally(() => {
+                // Restaurar botón
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            });
+        });
+    });
+});
+</script>
 </body>
 </html>

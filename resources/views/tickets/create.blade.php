@@ -111,12 +111,17 @@
         <i class="bi bi-ticket-detailed"></i> Sistema de Tickets
     </div>
     <nav class="sidebar-nav">
-        <a href="{{ route('client.dashboard') }}" class="nav-link">
+        <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : (auth()->user()->isTecnico() ? route('tecnico.dashboard') : route('client.dashboard')) }}" class="nav-link">
             <i class="bi bi-house-door"></i> Dashboard
         </a>
         <a href="{{ route('tickets.index') }}" class="nav-link">
             <i class="bi bi-collection"></i> Mis Tickets
         </a>
+        @if(auth()->user()->isAdmin())
+        <a href="{{ route('admin.users.index') }}" class="nav-link">
+            <i class="bi bi-people"></i> Gestión Usuarios
+        </a>
+        @endif
         <a href="{{ route('tickets.create') }}" class="nav-link active">
             <i class="bi bi-plus-circle"></i> Crear Ticket
         </a>
@@ -126,7 +131,7 @@
         <form method="POST" action="{{ route('logout') }}" class="mt-1">
             @csrf
             <button type="submit" style="background:none;border:none;color:#ef4444;font-size:.8rem;font-weight:500;padding:0;cursor:pointer;">
-                <i class="bi bi-box-arrow-left me-1"></i>Cerrar sesion
+                <i class="bi bi-box-arrow-left me-1"></i>Cerrar sesión
             </button>
         </form>
     </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Sistema de Tickets</title>
+    <title>Dashboard Técnico - Sistema de Tickets</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -131,14 +131,11 @@
         <i class="bi bi-ticket-detailed"></i> Sistema de Tickets
     </div>
     <nav class="sidebar-nav">
-        <a href="{{ route('admin.dashboard') }}" class="nav-link active">
+        <a href="{{ route('tecnico.dashboard') }}" class="nav-link active">
             <i class="bi bi-house-door"></i> Dashboard
         </a>
         <a href="{{ route('tickets.index') }}" class="nav-link">
             <i class="bi bi-collection"></i> Tickets
-        </a>
-        <a href="{{ route('admin.users.index') }}" class="nav-link">
-            <i class="bi bi-people"></i> Gestión Usuarios
         </a>
         <a href="{{ route('tickets.create') }}" class="nav-link">
             <i class="bi bi-plus-circle"></i> Crear Ticket
@@ -157,7 +154,7 @@
 
 <!-- Topbar -->
 <header class="topbar">
-    <h5>Panel de Control (Equipo de Soporte)</h5>
+    <h5>Panel de Control (Técnico)</h5>
     <div class="d-flex align-items-center gap-3">
         <a href="{{ route('tickets.create') }}" class="btn btn-sm text-white" style="background:var(--primary);font-size:.82rem;font-weight:600;">
             <i class="bi bi-plus-lg me-1"></i> Nuevo Ticket
@@ -181,7 +178,7 @@
                         <span class="stat-label">Abiertos</span>
                         <span class="stat-icon" style="background:#eef2ff;color:#4f46e5;"><i class="bi bi-envelope-open"></i></span>
                     </div>
-                    <div class="stat-value" style="color:#3b82f6;">{{ $tickets->where('estado', 'abierto')->count() }}</div>
+                    <div class="stat-value" style="color:#4f46e5;">{{ $tickets->where('estado', 'abierto')->count() }}</div>
                 </div>
             </div>
             <div class="col-12 col-xl-4">

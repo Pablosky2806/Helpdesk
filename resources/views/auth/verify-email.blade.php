@@ -65,23 +65,23 @@
                 </div>
             </div>
             <h3 style="text-align: center;">Verifica tu email</h3>
-            <p class="desc" style="text-align: center;">Gracias por registrarte. Antes de empezar, verifica tu direccion de email haciendo clic en el enlace que te acabamos de enviar. Si no recibiste el email, te enviaremos otro con gusto.</p>
+            <p class="desc" style="text-align: center;">Gracias por registrarte. Antes de empezar, verifica tu dirección de email haciendo clic en el enlace que te acabamos de enviar. Si no recibiste el email, te enviaremos otro con gusto.</p>
 
             @if (session('status') == 'verification-link-sent')
                 <div class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 0.85rem; border-radius: 10px;">
-                    <i class="bi bi-check-circle-fill me-1"></i> Se ha enviado un nuevo enlace de verificacion a tu email.
+                    <i class="bi bi-check-circle-fill me-1"></i> Se ha enviado un nuevo enlace de verificación a tu email.
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
 
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
-                <button type="submit" class="btn-auth mb-3">Reenviar email de verificacion</button>
+                <button type="submit" class="btn-auth mb-3">Reenviar email de verificación</button>
             </form>
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="btn-outline-auth">Cerrar sesion</button>
+                <button type="submit" class="btn-outline-auth">Cerrar sesión</button>
             </form>
         </div>
     </div>

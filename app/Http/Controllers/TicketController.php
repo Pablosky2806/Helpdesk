@@ -87,6 +87,7 @@ class TicketController extends Controller
     return view('tickets.show', compact('ticket'));
 }
 
+
     // Mostrar formulario de edición
 public function edit(Ticket $ticket)
 {
